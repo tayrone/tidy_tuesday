@@ -24,6 +24,8 @@ theme_set(theme_light())
 
 fishing <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/fishing.csv')
 
+fishing <- fishing %>% filter(year > 1925) # Some data before 1925 have weird behavior
+
 
 ```
 
@@ -32,10 +34,12 @@ fishing <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 fishing %>% 
   ggplot(aes(grand_total, values)) + 
   geom_point() +
+  geom_abline() +
   scale_y_continuous(labels = scales::label_number_si()) +
   scale_x_continuous(labels = scales::label_number_si()) +
   labs(x = "Grand total of observed", 
-       y = "Production amount (in pounds)")
+       y = "Production amount (in pounds)",
+       title = "Production amounts are never greater than grand totals")
 
 
 
@@ -46,7 +50,108 @@ fishing %>%
   geom_line() + 
   scale_y_continuous(labels = label_number_si()) +
   labs(x = NULL, 
-       y = "Total Production (in pounds)")
+       y = "Total Production (in pounds)",
+       title = "Total production throughout the years",
+       subtitle = "Considering all species and all lakes together")
+
+
+fishing %>% 
+  group_by(year, lake) %>% 
+  summarise(year_production = sum(values, na.rm = T)) %>% 
+  ggplot(aes(year, year_production)) + 
+  geom_line(aes(color = lake)) + 
+  scale_y_continuous(labels = label_number_si()) +
+  labs(x = NULL, 
+       y = "Total Production (in pounds)",
+       title = "Total production throughout the years",
+       subtitle = "Considering all species together and lakes separate")
+
+
+```
+
+
+
+```{r}
+
+fishing %>% 
+  group_by(year, region) %>% 
+  summarise(year_production = sum(values, na.rm = T)) %>% 
+  drop_na() %>% 
+  ungroup() %>% 
+  group_by(region) %>% 
+  mutate(region_max_production = max(year_production)) %>% 
+         #species = ifelse(species_max <= 10000, "Other", species)) %>% View()
+  filter(region_max_production > 20000) %>% 
+  ggplot(aes(year, year_production)) + 
+  geom_line(aes(color = region), size = 1) +
+  scale_y_continuous(labels = label_number_si()) +
+  labs(x = NULL, 
+       y = "Total Production (in pounds)",
+       title = "Total production throughout the years",
+       subtitle = "For regions that had, at least, one production of >20k",
+       color = NULL)
+```
+
+
+It is not feasible to analyze the behaviour of each species on each lake.
+```{r}
+
+fishing %>% 
+  group_by(year, lake, species) %>% 
+  summarise(year_production = sum(values, na.rm = T))
+  
+```
+
+
+```{r}
+
+grand_total <- fishing %>%
+  group_by(species, year) %>% 
+  slice_head(n = 1) %>% 
+  select(year, species, grand_total) %>% 
+  drop_na() %>% 
+  ungroup() %>% 
+  group_by(species) %>% 
+  mutate(species_max = max(grand_total)) %>% 
+         #species = ifelse(species_max <= 10000, "Other", species)) %>% View()
+  filter(species_max > 10000) %>% 
+  select(year, species, grand_total)
+
+year_total <- grand_total %>% 
+  ungroup() %>% 
+  group_by(year) %>% 
+  summarise(grand_total = sum(grand_total)) %>% 
+  mutate(species = "Total")
+
+grand_total <- bind_rows(grand_total, year_total)
+
+grand_total %>% 
+  ggplot(aes(year, grand_total)) +
+  geom_line(aes(color = species), size = 1) +
+  scale_y_continuous(labels = label_number_si()) + 
+  labs(x = NULL, 
+       y = "Grand total (in pounds)",
+       color = NULL,
+       title = "Species that had at least one grand total of >10k")
+
+
+  
+```
+
+
+```{r}
+
+fishing %>% 
+  group_by(lake, species, year) %>% 
+  slice_head(n = 1) %>% 
+  select(year, lake, species, grand_total) %>% 
+  drop_na() %>% 
+  ggplot(aes(lake, species)) + 
+  geom_raster(aes(fill = grand_total)) +
+  labs(x = NULL, y = NULL, fill = NULL,
+       title = "Total sum of each fish species observed through the years",
+       subtitle = "Note that Lake Michigan has no data on this subject") +
+  scale_fill_continuous(labels = label_number_si())
 
 
 ```
@@ -54,18 +159,9 @@ fishing %>%
 ```{r}
 
 fishing %>% 
-  group_by(lake, species) %>% 
-  summarise(amount = sum(grand_total, na.rm = T)) %>% 
-  ggplot(aes(lake, species)) + 
-  geom_tile(aes(fill = amount)) +
-  labs(x = NULL, y = NULL, fill = NULL,
-       title = "Total sum of each fish species observed through the years") +
-  scale_fill_continuous(labels = label_number_si())
-
-
-
-  
+  count(comments) %>% 
+  arrange(desc(n)) %>% 
+  View()
 
 ```
-
 
