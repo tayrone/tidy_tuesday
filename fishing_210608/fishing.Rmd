@@ -44,18 +44,6 @@ fishing %>%
 
 
 fishing %>% 
-  group_by(year) %>% 
-  summarise(year_production = sum(values, na.rm = T)) %>% 
-  ggplot(aes(year, year_production)) + 
-  geom_line() + 
-  scale_y_continuous(labels = label_number_si()) +
-  labs(x = NULL, 
-       y = "Total Production (in pounds)",
-       title = "Total production throughout the years",
-       subtitle = "Considering all species and all lakes together")
-
-
-fishing %>% 
   group_by(year, lake) %>% 
   summarise(year_production = sum(values, na.rm = T)) %>% 
   ggplot(aes(year, year_production)) + 
@@ -164,4 +152,101 @@ fishing %>%
   View()
 
 ```
+
+
+Let's try to predict the U.S. total production based on the production of Ohio only.
+
+These two plots represent the data used on the model.
+
+```{r}
+
+us_total_production <- fishing %>% 
+  filter(region == "U.S. Total") %>% 
+  group_by(year) %>% 
+  summarise(us_total_production = sum(values, na.rm = T)) 
+  
+us_total_production %>% 
+  ggplot(aes(year, us_total_production)) + 
+  geom_line(size = 1) + 
+  scale_y_continuous(labels = label_number_si()) +
+  labs(x = NULL, 
+       y = "Total Production (in pounds)",
+       title = "U.S. total production throughout the years",
+       subtitle = "Considering all species and all lakes together")
+
+
+ohio_production <- fishing %>% 
+  filter(region == "Ohio (OH)") %>% 
+  group_by(year, region) %>% 
+  summarise(ohio_production = sum(values, na.rm = T)) %>% 
+  select(-region)
+
+ohio_production %>% 
+  ggplot(aes(year, ohio_production)) + 
+  geom_line(size = 1) +
+  scale_y_continuous(labels = label_number_si()) +
+  labs(x = NULL, y = "Production (in pounds)",
+       title = "Total production of the region of Ohio",
+       subtitle = "Considering all species together")
+
+
+```
+
+Now, let's define training and testing data.
+
+```{r}
+
+production <- inner_join(ohio_production, us_total_production)
+
+data <- initial_split(production)
+
+train_production <- training(data)
+test_production <- testing(data)
+
+```
+
+
+Now, it is possible to fit the model and make the predictions right away.
+
+```{r}
+
+lm_model <- linear_reg() %>% set_engine("lm")
+
+model_fit <- 
+  fit(lm_model, us_total_production ~ ohio_production, data = train_production)
+
+
+prediction <- predict(model_fit, new_data = test_production)
+
+```
+
+
+We can apply some metrics to judge model effectiveness.
+
+```{r}
+
+#Let's bind the real values and the predictions make on the test set.
+
+prediction <- bind_cols(select(test_production, us_total_production), prediction) %>% 
+  ungroup() %>% 
+  select(-year)
+
+
+
+prediction %>% 
+  ggplot(aes(us_total_production, .pred)) +
+  geom_abline() +
+  geom_point() +
+  coord_obs_pred()
+
+
+rmse(prediction, truth = us_total_production, estimate = .pred) 
+mae(prediction, truth = us_total_production, estimate = .pred) 
+
+mean(prediction$us_total_production)
+
+```
+
+
+This model produced a mean absolute error of 13k. Let's try adding more regions to the prediction.
 
