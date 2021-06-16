@@ -9,7 +9,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo = FALSE}
+```{r, message = FALSE}
 
 library(tidyverse)
 library(tidymodels)
@@ -23,9 +23,9 @@ set.seed(123)
 ```
 
 
-#Let's load the data
+### First, let's load the data
 
-```{r, echo = F}
+```{r, message = FALSE}
 
 fishing <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/fishing.csv')
 
@@ -35,7 +35,7 @@ fishing <- fishing %>% filter(year > 1925) # Some data before 1955 have weird be
 ```
 
 
-# Some data exploratory analysis
+# Exploratory data analysis
 
 ```{r}
 
@@ -54,7 +54,7 @@ fishing %>%
 ```
 
 
-#It is not feasible to analyze the behaviour of each species on each lake.
+### It is not feasible to analyze the behaviour of each species on each lake.
 
 ```{r}
 
@@ -87,6 +87,10 @@ year_total <- grand_total %>%
 
 grand_total <- bind_rows(grand_total, year_total)
 
+```
+
+
+```{r}
 grand_total %>% 
   ggplot(aes(year, grand_total)) +
   geom_line(aes(color = species), size = 1) +
@@ -96,14 +100,14 @@ grand_total %>%
        color = NULL,
        title = "Species that had at least one grand total of >10k")
 
-
-  
 ```
 
 
-Let's try to predict the U.S. total production based on the production of Ohio only.
+# Modeling
 
-These two plots represent the data used on the model.
+### Let's try to predict the U.S. total production based on the production of Ohio only.
+
+### These two plots represent the data used on the model.
 
 ```{r}
 
@@ -137,7 +141,10 @@ region_production <- fishing %>%
 # These are the regions that present at least one production of >10k, 
 #as shown on a previous plot.
 
+```
     
+
+```{r}
 region_production %>% 
   ggplot(aes(year, `Ohio (OH)`)) + 
   geom_line(size = 1) +
@@ -145,7 +152,9 @@ region_production %>%
   labs(x = NULL, y = "Production (in pounds)",
        title = "Total production of the region of Ohio",
        subtitle = "Considering all species together")
+```
 
+```{r}
 region_production %>% 
   pivot_longer(cols = !starts_with("year"), 
                names_to = "region", values_to = "year_production") %>% 
@@ -157,11 +166,10 @@ region_production %>%
        title = "Total production throughout the years",
        subtitle = "For regions that had, at least, one production of >10k",
        color = NULL)
-
-
 ```
 
-Now, let's define training and testing data.
+
+### Now, let's define training and testing data.
 
 ```{r}
 
@@ -174,7 +182,7 @@ test_production <- testing(data)
 ```
 
 
-Now, it is possible to fit the model and make the predictions right away.
+### It is possible to fit the model and make the predictions right away.
 
 ```{r}
 
@@ -189,7 +197,7 @@ prediction <- predict(model_fit, new_data = test_production)
 ```
 
 
-We can apply some metrics to judge model effectiveness.
+### We can apply some metrics to judge model effectiveness.
 
 ```{r}
 
@@ -198,14 +206,6 @@ We can apply some metrics to judge model effectiveness.
 prediction <- bind_cols(test_production, prediction) %>% 
   ungroup() %>% 
   select(-year)
-
-
-prediction %>% 
-  ggplot(aes(`U.S. Total`, .pred)) +
-  geom_abline() +
-  geom_point() +
-  coord_obs_pred()
-
 
 pred_metrics <- metric_set(rmse, mae)
 
@@ -216,13 +216,20 @@ prediction %>%
 ```
 
 
-This model produced a mean absolute error of 13k. Let's try adding more regions to the prediction.
+```{r}
+prediction %>% 
+  ggplot(aes(`U.S. Total`, .pred)) +
+  geom_abline() +
+  geom_point() +
+  coord_obs_pred()
+```
 
 
-Let's split the data again and fit the model.
+### This model produced a mean absolute error of 13k. Let's try adding more regions to the prediction.
+
+### Let's fit the model again.
 
 ```{r}
-
 
 model_fit <- 
   fit(lm_model, 
@@ -241,21 +248,21 @@ prediction <- predict(model_fit, new_data = test_production)
 prediction <- bind_cols(test_production, prediction)
 
 prediction %>% 
-  ggplot(aes(.pred, `U.S. Total`)) +
-  geom_abline() +
-  geom_point() +
-  coord_obs_pred()
-
-
-prediction %>% 
   ungroup() %>% 
   pred_metrics(truth = `U.S. Total`, estimate = .pred)
 
 ```
 
+```{r}
+prediction %>% 
+  ggplot(aes(.pred, `U.S. Total`)) +
+  geom_abline() +
+  geom_point() +
+  coord_obs_pred()
+```
 
-Some regions fit the requirement of having least one production of >10k, 
-but present data starting only at 1953. Let's try using them on our model.
+
+### Some regions fit the requirement of having least one production of >10k, but present data starting only at 1953. Let's try using them on our model.
 
 ```{r}
 
@@ -270,7 +277,9 @@ region_production <- fishing %>%
   select(-region_max_production) %>% 
   pivot_wider(names_from = region, values_from = region_production)
 
+```
 
+```{r}
 region_production %>% 
   pivot_longer(cols = !starts_with("year"), 
                names_to = "region", values_to = "year_production") %>% 
@@ -282,8 +291,8 @@ region_production %>%
        title = "Total production throughout the years",
        subtitle = "For regions that had, at least, one production of >10k",
        color = NULL)
-
 ```
+
 
 
 ```{r}
@@ -312,15 +321,16 @@ prediction <- predict(model_fit, new_data = test_production)
 prediction <- bind_cols(test_production, prediction)
 
 prediction %>% 
+  ungroup() %>% 
+  pred_metrics(truth = `U.S. Total`, estimate = .pred)
+
+```
+
+```{r}
+prediction %>% 
   ggplot(aes(.pred, `U.S. Total`)) +
   geom_abline() +
   geom_point() +
   coord_obs_pred()
-
-
-prediction %>% 
-  ungroup() %>% 
-  pred_metrics(truth = `U.S. Total`, estimate = .pred)
-
 ```
 
