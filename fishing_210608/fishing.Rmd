@@ -27,7 +27,7 @@ set.seed(123)
 
 ```{r, message = FALSE}
 
-fishing <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/fishing.csv')
+fishing <- readr::read_csv(paste0("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-06-08/fishing.csv"))
 
 fishing <- fishing %>% filter(year > 1925) # Some data before 1955 have weird behavior
 
@@ -37,7 +37,7 @@ fishing <- fishing %>% filter(year > 1925) # Some data before 1955 have weird be
 
 # Exploratory data analysis
 
-```{r}
+```{r, message = FALSE}
 
 fishing %>% 
   group_by(year, lake) %>% 
@@ -60,7 +60,9 @@ fishing %>%
 
 fishing %>% 
   group_by(year, lake, species) %>% 
-  summarise(year_production = sum(values, na.rm = T))
+  summarise(year_production = sum(values, na.rm = T)) %>% 
+  nrow()
+  
   
 ```
 
@@ -107,9 +109,9 @@ grand_total %>%
 
 ### Let's try to predict the U.S. total production based on the production of Ohio only.
 
-### These two plots represent the data used on the model.
+### The next two plots represent the data used on the model.
 
-```{r}
+```{r, message = FALSE}
 
 us_total_production <- fishing %>% 
   filter(region == "U.S. Total") %>% 
@@ -154,6 +156,9 @@ region_production %>%
        subtitle = "Considering all species together")
 ```
 
+
+### We can also see how other regions total production are distributed.
+
 ```{r}
 region_production %>% 
   pivot_longer(cols = !starts_with("year"), 
@@ -169,7 +174,9 @@ region_production %>%
 ```
 
 
-### Now, let's define training and testing data.
+### By now, let's try to predict the total U.S. production by using Ohio production as a predictor.
+
+### At first, let's split the data on training and testing sets.
 
 ```{r}
 
@@ -188,8 +195,14 @@ test_production <- testing(data)
 
 lm_model <- linear_reg() %>% set_engine("lm")
 
+lm_workflow <- 
+  workflow() %>% 
+  add_model(lm_model) %>% 
+  add_formula(`U.S. Total` ~ `Ohio (OH)`)
+
+
 model_fit <- 
-  fit(lm_model, `U.S. Total` ~ `Ohio (OH)`, data = train_production)
+  fit(lm_workflow, data = train_production)
 
 
 prediction <- predict(model_fit, new_data = test_production)
@@ -225,17 +238,17 @@ prediction %>%
 ```
 
 
-### This model produced a mean absolute error of 13k. Let's try adding more regions to the prediction.
+### This model produced a mean absolute error of 13k. Let's try adding more regions to the prediction and fit the model once again.
 
-### Let's fit the model again.
 
 ```{r}
 
-model_fit <- 
-  fit(lm_model, 
-      `U.S. Total` ~ `Ohio (OH)` + `Minnesota (MN)` + `Wisconsin (WI)` + 
-        `Michigan (MI)` + `MI State Total`, 
-      data = train_production)
+lm_workflow <- lm_workflow %>% 
+  update_formula(`U.S. Total` ~ `Ohio (OH)` + `Minnesota (MN)` + `Wisconsin (WI)` + 
+        `Michigan (MI)` + `MI State Total`)
+
+
+model_fit <- fit(lm_workflow, data = train_production)
 
 
 prediction <- predict(model_fit, new_data = test_production)
@@ -262,9 +275,9 @@ prediction %>%
 ```
 
 
-### Some regions fit the requirement of having least one production of >10k, but present data starting only at 1953. Let's try using them on our model.
+### Some regions fit the requirement of having least one production of >10k, but present data starting only at 1953. Let's try using them on our model to see if they have a good impact.
 
-```{r}
+```{r, message = FALSE}
 
 region_production <- fishing %>% 
   filter(year >= 1953) %>% 
@@ -278,6 +291,9 @@ region_production <- fishing %>%
   pivot_wider(names_from = region, values_from = region_production)
 
 ```
+
+
+### First, we can make a plot to have a general ideia of their behavior.
 
 ```{r}
 region_production %>% 
@@ -294,6 +310,7 @@ region_production %>%
 ```
 
 
+### Since the data were reduced, let's do the initial split once again.
 
 ```{r}
 
@@ -306,12 +323,13 @@ test_production <- testing(data)
 
 
 ```{r}
-model_fit <- 
-  fit(lm_model, 
-      `U.S. Total` ~ `Ohio (OH)` + `Mich. Proper (MI)` + `Mich. Proper (WI)` + 
-        `Green Bay (MI)` + `Green Bay (WI)`, 
-      data = train_production)
 
+lm_workflow <- lm_workflow %>% 
+  update_formula(`U.S. Total` ~ `Ohio (OH)` + `Mich. Proper (MI)` + 
+                 `Mich. Proper (WI)` + `Green Bay (MI)` + `Green Bay (WI)`)
+
+model_fit <- 
+  fit(lm_workflow, data = train_production)
 
 prediction <- predict(model_fit, new_data = test_production)
 ```
@@ -334,3 +352,5 @@ prediction %>%
   coord_obs_pred()
 ```
 
+
+#### That's it! A mean squared error of 2k. A much better result than the ones obtained by previous models.
