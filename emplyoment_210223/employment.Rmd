@@ -1,0 +1,40 @@
+---
+title: "us_wealth_income"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+
+
+earn <- tidytuesdayR::tt_load(2021, week = 9)$earn
+employed <- tidytuesdayR::tt_load(2021, week = 9)$employed
+
+theme_set(theme_light())
+
+```
+
+```{r}
+
+
+employed %>% 
+  filter(!is.na(employ_n)) %>% 
+  ggplot(aes(year, employ_n)) +
+  geom_col() +
+  facet_wrap(vars(industry)) +
+  scale_y_continuous(labels = scales::label_number_si())
+
+
+earn %>% 
+  group_by(sex, year) %>% 
+  summarise(weekly_earn_year_mean = mean(median_weekly_earn)) %>% 
+  ggplot(aes(year, weekly_earn_year_mean, color = sex)) +
+  geom_path()
+  
+  
+
+
+```
+
+
