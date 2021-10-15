@@ -1,0 +1,56 @@
+---
+title: "artworks"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(skimr)
+
+theme_set(theme_light())
+
+data <- tidytuesdayR::tt_load(2021, week = 3)
+
+artists <- data$artists
+artwork <- data$artwork
+
+rm(data)
+
+```
+
+
+# Exploratory Data Analysis
+
+```{r}
+
+skim(artists)
+skim(artwork)
+
+```
+
+
+```{r}
+
+top_birth_places <- artists %>% 
+  drop_na() %>% 
+  mutate(country_of_birth = str_extract(placeOfBirth, "\\b[^,]+$")) %>% 
+  count(country_of_birth, sort = TRUE, name = "number_of_artists") %>% 
+  mutate(proportion = number_of_artists/sum(number_of_artists)) %>% 
+  slice_max(proportion, prop = 0.25)
+
+
+top_birth_places %>% 
+  ggplot(aes(reorder(country_of_birth, number_of_artists), number_of_artists)) +
+  geom_col() +
+  coord_flip() + 
+  labs(x = "Country of Birth", y = "Number of Artists")
+  
+  
+
+
+```
+
