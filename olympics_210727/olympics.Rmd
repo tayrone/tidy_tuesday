@@ -1,0 +1,133 @@
+---
+title: "olympics"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(skimr)
+
+theme_set(theme_light())
+
+data <- tidytuesdayR::tt_load('2021-07-27')
+olympics <- data$olympics
+
+rm(data)
+
+```
+
+
+```{r}
+
+skim(olympics)
+
+```
+
+
+```{r}
+
+olympics %>% 
+  summarise(years = unique(year)) %>% 
+  arrange(years) %>% 
+  pull(years)
+
+
+summer_olympics <- olympics %>% 
+  filter(season == "Summer")
+
+```
+
+# Athletes with the greatest number of medals
+
+```{r}
+
+most_medals <- summer_olympics %>% 
+  filter(!is.na(medal)) %>% 
+  count(name, sort = TRUE) %>% 
+  slice_max(n, prop = 0.001)
+
+
+most_medals %>% 
+  ggplot(aes(reorder(name, n), n)) +
+  geom_col(fill = "#272F49", color = "#676D7F") +
+  coord_flip() +
+  labs(x = NULL, y = "Number of olympic medals",
+       title = "Top 0.1% of olympic athletes",
+       subtitle = "Ordered by total number of medals")
+  
+
+```
+
+# Countries with the greatest number of medals
+
+```{r}
+
+
+countries_most_medals <- summer_olympics %>% 
+  filter(!is.na(medal)) %>% 
+  count(team, sort = TRUE) %>% 
+  slice_max(n, prop = 0.05)
+
+
+countries_most_medals %>% 
+  ggplot(aes(reorder(team, n), n)) +
+  geom_col(fill = "#272F49", color = "#676D7F") +
+  coord_flip() +
+  labs(x = NULL, y = "Number of olympic medals",
+       title = "Top 5% of olympic teams in history",
+       subtitle = "Ordered by total number of medals")
+
+```
+
+
+# Average height by team
+
+```{r}
+
+height_team <- summer_olympics %>% 
+  group_by(team) %>% 
+  summarise(avg_height = mean(height)) %>% 
+  drop_na(avg_height) %>% 
+  arrange(desc(avg_height)) %>% 
+  slice_max(avg_height, prop = 0.2)
+
+height_team %>% 
+  ggplot(aes(reorder(team, avg_height), avg_height)) +
+  geom_col() +
+  coord_flip()
+  
+
+
+```
+
+
+# Top 5% sports by number of delivered medals, in history
+
+```{r}
+
+events_most_medals <- summer_olympics %>% 
+  drop_na(event, medal) %>% 
+  group_by(event) %>% 
+  count(medal, name = "total_medals") %>% 
+  ungroup() %>% 
+  slice_max(total_medals, prop = 0.05)
+
+events_most_medals %>% 
+  ggplot(aes(medal, reorder(event, total_medals), fill = total_medals)) +
+  geom_tile() +
+  scale_fill_gradient(low = "#a4dab7", high = "#272f49") +
+  labs(title = "Men's football is the event that delivered the most medals",
+       subtitle = "Considering all events in history", x = NULL,
+       y = "Olympic Event", fill = "Total number of medals")
+  
+
+```
+
+
+

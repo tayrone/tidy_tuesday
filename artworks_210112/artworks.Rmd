@@ -33,6 +33,8 @@ skim(artwork)
 ```
 
 
+# Nationality of artists represented in the Tate Museum
+
 ```{r}
 
 top_birth_places <- artists %>% 
@@ -47,10 +49,12 @@ top_birth_places %>%
   ggplot(aes(reorder(country_of_birth, number_of_artists), number_of_artists)) +
   geom_col() +
   coord_flip() + 
-  labs(x = "Country of Birth", y = "Number of Artists")
-  
-  
+  labs(x = "Country of Birth", y = "Number of Artists",
+       title = "British artists are the most represented",
+       subtitle = "The Tate museum is located in London, UK")
 
 
 ```
+
+
 
