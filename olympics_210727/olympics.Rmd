@@ -112,17 +112,15 @@ height_team %>%
 ```{r}
 
 events_most_medals <- summer_olympics %>% 
-  drop_na(event, medal) %>% 
-  group_by(event) %>% 
-  count(medal, name = "total_medals") %>% 
-  ungroup() %>% 
-  slice_max(total_medals, prop = 0.05)
+  drop_na(sport, medal) %>% 
+  group_by(sport) %>% 
+  count(medal, name = "total_medals")
 
 events_most_medals %>% 
-  ggplot(aes(medal, reorder(event, total_medals), fill = total_medals)) +
+  ggplot(aes(medal, reorder(sport, total_medals), fill = total_medals)) +
   geom_tile() +
   scale_fill_gradient(low = "#a4dab7", high = "#272f49") +
-  labs(title = "Men's football is the event that delivered the most medals",
+  labs(title = "Athletics is the sport that delivered the most medals",
        subtitle = "Considering all events in history", x = NULL,
        y = "Olympic Event", fill = "Total number of medals")
   
@@ -130,4 +128,48 @@ events_most_medals %>%
 ```
 
 
+```{r}
+
+avg_height <- summer_olympics %>% 
+  drop_na(height) %>% 
+  group_by(sport, sex) %>% 
+  mutate(sex_sport_avg_height = mean(height))
+
+avg_height <- avg_height %>% 
+  ungroup() %>% 
+  group_by(sport) %>% 
+  mutate(sport_avg_height = mean(height)) %>% 
+  select(sex, sport, sex_sport_avg_height,
+         sport_avg_height)
+
+# To do: Send sport_avg_height values to sex_sport_avg_height, 
+# with "sex" value as "Both"
+
+avg_height %>% 
+  distinct()
+  pivot_longer()
+  
+  
+  
+height_plot <- avg_height %>% 
+  ggplot() +
+  geom_point(aes(reorder(sport, sex_sport_avg_height), sex_sport_avg_height,
+             color = sex, group = sex)) +
+  geom_line(aes(reorder(sport, sex_sport_avg_height), sex_sport_avg_height,
+             color = sex, group = sex))
+  
+height_plot <- height_plot +
+  geom_point(aes(reorder(sport, sport_avg_height), sport_avg_height),
+             color = "#a9acc4") +
+  geom_line(aes(reorder(sport, sport_avg_height), sport_avg_height, group = 1),
+            color = "#a9acc4") 
+ 
+  
+height_plot +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(x = "Sport", y = "Average height", color = "Sex",
+       title = "Gymnastics and Basketball are on the extremes of average athlete height",
+       subtitle = "Considering all summer olympic sports") 
+  
+```
 
