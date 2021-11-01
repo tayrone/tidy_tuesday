@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, message = F, warning = F}
 library(tidyverse)
 library(skimr)
+library(tidymodels)
 
 theme_set(theme_light())
 
@@ -86,27 +87,6 @@ countries_most_medals %>%
 ```
 
 
-# Average height by team
-
-```{r}
-
-height_team <- summer_olympics %>% 
-  group_by(team) %>% 
-  summarise(avg_height = mean(height)) %>% 
-  drop_na(avg_height) %>% 
-  arrange(desc(avg_height)) %>% 
-  slice_max(avg_height, prop = 0.2)
-
-height_team %>% 
-  ggplot(aes(reorder(team, avg_height), avg_height)) +
-  geom_col() +
-  coord_flip()
-  
-
-
-```
-
-
 # Top 5% sports by number of delivered medals, in history
 
 ```{r}
@@ -134,35 +114,29 @@ events_most_medals %>%
 
 avg_height <- summer_olympics %>% 
   drop_na(height) %>% 
-  group_by(sport, sex) %>% 
-  mutate(sex_sport_avg_height = mean(height))
-
-avg_height <- avg_height %>% 
-  ungroup() %>% 
+  select(height, sport) %>% 
   group_by(sport) %>% 
-  mutate(sport_avg_height = mean(height)) %>% 
-  select(sex, sport, sex_sport_avg_height,
-         sport_avg_height) %>% 
-  distinct()
+  summarise(avg_height = mean(height)) %>% 
+  mutate(sex = "Both")
+  
 
-both_sexes_avg_height <- avg_height %>% 
-  select(sport, sex_sport_avg_height = sport_avg_height) %>% 
-  mutate(sex = "Both") %>% 
-  distinct()
+avg_height_sex <- summer_olympics %>% 
+  drop_na(height) %>% 
+  select(height, sport, sex) %>% 
+  group_by(sport, sex) %>% 
+  summarise(avg_height = mean(height))
 
 
 avg_height <- avg_height %>% 
-  select(-sport_avg_height) %>% 
-  bind_rows(both_sexes_avg_height) %>% 
-  arrange(sport, sex)
-  
+  bind_rows(avg_height_sex) %>% 
+  arrange(sport)
 
   
 height_plot <- avg_height %>% 
   ggplot() +
-  geom_point(aes(reorder(sport, sex_sport_avg_height), sex_sport_avg_height,
+  geom_point(aes(reorder(sport, avg_height), avg_height,
              color = sex, group = sex)) +
-  geom_line(aes(reorder(sport, sex_sport_avg_height), sex_sport_avg_height,
+  geom_line(aes(reorder(sport, avg_height), avg_height,
              color = sex, group = sex))
   
 height_plot +
@@ -170,6 +144,8 @@ height_plot +
   labs(x = "Sport", y = "Average height", color = "Sex",
        title = "Gymnastics and Basketball are on the extremes of average athlete height",
        subtitle = "Considering all summer olympic sports") 
+
+rm(avg_height_sex)
   
 ```
 
@@ -179,43 +155,39 @@ height_plot +
 
 avg_weight <- summer_olympics %>% 
   drop_na(weight) %>% 
-  group_by(sport, sex) %>% 
-  mutate(sex_sport_avg_weight = mean(weight))
-
-avg_weight <- avg_weight %>% 
-  ungroup() %>% 
+  select(weight, sport) %>% 
   group_by(sport) %>% 
-  mutate(sport_avg_weight = mean(weight)) %>% 
-  select(sex, sport, sex_sport_avg_weight,
-         sport_avg_weight) %>% 
-  distinct()
+  summarise(avg_weight = mean(weight)) %>% 
+  mutate(sex = "Both")
+  
 
-both_sexes_avg_weight <- avg_weight %>% 
-  select(sport, sex_sport_avg_weight = sport_avg_weight) %>% 
-  mutate(sex = "Both") %>% 
-  distinct()
+avg_weight_sex <- summer_olympics %>% 
+  drop_na(weight) %>% 
+  select(weight, sport, sex) %>% 
+  group_by(sport, sex) %>% 
+  summarise(avg_weight = mean(weight))
 
 
 avg_weight <- avg_weight %>% 
-  select(-sport_avg_weight) %>% 
-  bind_rows(both_sexes_avg_weight) %>% 
-  arrange(sport, sex)
-  
+  bind_rows(avg_weight_sex) %>% 
+  arrange(sport)
 
   
 weight_plot <- avg_weight %>% 
   ggplot() +
-  geom_point(aes(reorder(sport, sex_sport_avg_weight), sex_sport_avg_weight,
+  geom_point(aes(reorder(sport, avg_weight), avg_weight,
              color = sex, group = sex)) +
-  geom_line(aes(reorder(sport, sex_sport_avg_weight), sex_sport_avg_weight,
+  geom_line(aes(reorder(sport, avg_weight), avg_weight,
              color = sex, group = sex))
   
 weight_plot +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   labs(x = "Sport", y = "Average weight", color = "Sex",
-       title = "Tug-of-war is the absolute leader in average athlete weight",
+       title = "Rhythmic Gymnastics and Tug-of-War are on the extremes of average athlete weight",
        subtitle = "Considering all summer olympic sports") 
 
+
+rm(avg_weight_sex)
 
 ```
 
@@ -223,45 +195,96 @@ weight_plot +
 
 ```{r}
 
-
 avg_age <- summer_olympics %>% 
   drop_na(age) %>% 
-  group_by(sport, sex) %>% 
-  mutate(sex_sport_avg_age = mean(age))
-
-avg_age <- avg_age %>% 
-  ungroup() %>% 
+  select(age, sport) %>% 
   group_by(sport) %>% 
-  mutate(sport_avg_age = mean(age)) %>% 
-  select(sex, sport, sex_sport_avg_age,
-         sport_avg_age) %>% 
-  distinct()
+  summarise(avg_age = mean(age)) %>% 
+  mutate(sex = "Both")
+  
 
-both_sexes_avg_age <- avg_age %>% 
-  select(sport, sex_sport_avg_age = sport_avg_age) %>% 
-  mutate(sex = "Both") %>% 
-  distinct()
+avg_age_sex <- summer_olympics %>% 
+  drop_na(age) %>% 
+  select(age, sport, sex) %>% 
+  group_by(sport, sex) %>% 
+  summarise(avg_age = mean(age))
 
 
 avg_age <- avg_age %>% 
-  select(-sport_avg_age) %>% 
-  bind_rows(both_sexes_avg_age) %>% 
-  arrange(sport, sex)
-  
+  bind_rows(avg_age_sex) %>% 
+  arrange(sport)
 
   
 age_plot <- avg_age %>% 
   ggplot() +
-  geom_point(aes(reorder(sport, sex_sport_avg_age), sex_sport_avg_age,
+  geom_point(aes(reorder(sport, avg_age), avg_age,
              color = sex, group = sex)) +
-  geom_line(aes(reorder(sport, sex_sport_avg_age), sex_sport_avg_age,
+  geom_line(aes(reorder(sport, avg_age), avg_age,
              color = sex, group = sex))
   
 age_plot +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   labs(x = "Sport", y = "Average age", color = "Sex",
-       title = "A few sports have an average age greater than 30",
+       title = "Only a few sports have an average age of 30+ years old",
        subtitle = "Considering all summer olympic sports") 
+
+rm(avg_age_sex)
+
+```
+
+Let's predict athlete sport based on age, height, weight and sex
+
+```{r}
+
+summer_olympics <- olympics %>% 
+  filter(sex == "M", season == "Summer") %>% 
+  drop_na(age, height, weight, sport) %>% 
+  select(age, height, weight, sport) %>% 
+  mutate(sport = as.factor(sport))
+
+
+```
+
+
+
+```{r}
+
+set.seed(321)
+
+initial_split <- initial_split(summer_olympics, prop = 0.66)
+
+
+train <- training(initial_split)
+
+test <- testing(initial_split)
+
+```
+
+```{r}
+
+glm_spec <- logistic_reg() %>% set_engine("glm")
+
+glm_fit <- glm_spec %>% 
+  fit(sport ~ age + height + weight, data = train)
+
+tidy(glm_fit)
+
+```
+
+
+```{r}
+
+prediction <- predict(glm_fit, new_data = test)
+
+prediction <- bind_cols(test, prediction)
+
+prediction %>% 
+  ungroup() %>% 
+  metrics(truth = sport, estimate = .pred_class)
+
+prediction %>% 
+  ggplot(aes(.pred_class, `sport`)) +
+  geom_point()
 
 ```
 
