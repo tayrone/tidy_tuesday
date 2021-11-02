@@ -15,6 +15,7 @@ library(tidyverse)
 library(tidymodels)
 library(gdata)
 library(skimr)
+library(tidytuesdayR)
 
 theme_set(theme_light())
 
