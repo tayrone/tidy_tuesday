@@ -13,10 +13,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(skimr)
 library(tidymodels)
+library(tidytuesdayR)
 
 theme_set(theme_light())
 
-data <- tidytuesdayR::tt_load('2021-07-27')
+data <- tt_load('2021-07-27')
 olympics <- data$olympics
 
 rm(data)

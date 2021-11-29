@@ -1,0 +1,93 @@
+---
+title: "netflix"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(scales)
+library(skimr)
+library(tidytext)
+library(snakecase)
+
+tt <- tidytuesdayR::tt_load("2021-04-20")
+
+netflix <- tt$netflix_titles
+
+rm(tt)
+
+```
+
+
+```{r}
+
+netflix <- netflix %>% separate(duration, c("duration", "duration_unit"))
+
+
+```
+
+# Rating x Genre
+
+A title is listed in many different genres simultaneously. 
+
+
+```{r}
+
+netflix %>% count(rating)
+
+netflix %>% count(listed_in)
+
+rating_genre <- netflix %>% 
+  select(rating, listed_in) %>% 
+  separate_rows(listed_in, sep = ", ") %>% 
+  count(listed_in, rating) %>% 
+  arrange(desc(n))
+  
+
+rating_genre %>% 
+  ggplot(aes(rating, listed_in)) +
+  geom_point(aes(size = n))
+
+
+```
+
+# Director x Genre
+
+
+
+```{r}
+
+director_genre <- netflix %>% 
+  select(director, listed_in) %>% 
+  drop_na() %>% 
+  separate_rows(listed_in, sep = ", ") %>% 
+  separate_rows(director, sep = ", ") %>% 
+  count(listed_in, director) %>% 
+  arrange(desc(n))
+
+director_genre %>% 
+  slice_max(n, prop = 0.005) %>% 
+  ggplot(aes(reorder(director, -n), listed_in)) +
+  geom_point(aes(size = n)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+```
+
+
+```{r}
+
+netflix %>% 
+  select(director, cast) %>% 
+  drop_na() %>% 
+  separate_rows(cast, sep = ", ") %>% 
+  count(director, cast) %>% 
+  arrange(desc(n))
+
+
+```
+
