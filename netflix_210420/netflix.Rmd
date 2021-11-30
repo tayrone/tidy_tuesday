@@ -3,7 +3,7 @@ title: "netflix"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -17,6 +17,8 @@ library(snakecase)
 tt <- tidytuesdayR::tt_load("2021-04-20")
 
 netflix <- tt$netflix_titles
+
+theme_set(theme_light())
 
 rm(tt)
 
@@ -78,15 +80,71 @@ director_genre %>%
 
 ```
 
+# Director x Actors
 
 ```{r}
 
-netflix %>% 
+director_cast <- netflix %>% 
   select(director, cast) %>% 
   drop_na() %>% 
   separate_rows(cast, sep = ", ") %>% 
   count(director, cast) %>% 
   arrange(desc(n))
+
+director_cast %>% 
+  slice_max(n, prop = 0.0005) %>% 
+  ggplot(aes(reorder(director, -n), cast, size = n)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+
+```
+
+
+# Rating x Year
+
+```{r}
+
+netflix %>% 
+  ggplot(aes(year, ))
+
+
+```
+
+
+# Duration x Country
+
+```{r}
+
+duration <- netflix %>% 
+  filter(type == "Movie") %>% 
+  select(duration, country, release_year) %>% 
+  mutate(country = word(country, sep = fixed(", ")),
+         decade = (release_year %/% 10) * 10,
+         decade = as.factor(decade),
+         duration = as.numeric(duration))
+         
+
+duration %>% 
+  ggplot(aes(decade, duration, group = decade)) +
+  geom_boxplot() +
+  geom_smooth(method = "loess", se = TRUE, aes(group = 1)) 
+
+top_countries <- duration %>% 
+  count(country) %>% 
+  arrange(-n) %>% 
+  drop_na() %>% 
+  slice_max(n, prop = 0.05) %>% 
+  pull(country)
+
+duration %>% 
+  filter(country %in% top_countries) %>% 
+  ggplot(aes(decade, duration)) +
+  geom_boxplot(aes(group = decade)) +
+  geom_smooth(method = "loess", se = TRUE, aes(group = 1)) +
+  facet_wrap(~country) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
 
 ```
