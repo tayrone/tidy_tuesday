@@ -1,43 +1,69 @@
 ---
 title: "netflix"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, message = F}
 library(tidyverse)
 library(scales)
 library(skimr)
 library(tidytext)
 library(snakecase)
 
-tt <- tidytuesdayR::tt_load("2021-04-20")
-
-netflix <- tt$netflix_titles
-
 theme_set(theme_light())
 
-rm(tt)
+# tt <- tidytuesdayR::tt_load("2021-04-20")
+# netflix <- tt$netflix_titles
+# rm(tt)
+
+netflix <- read_csv("netflix.csv")
 
 ```
 
 
 ```{r}
+skim(netflix)
+```
 
-netflix <- netflix %>% separate(duration, c("duration", "duration_unit"))
+```{r}
 
+netflix <- netflix %>% separate(duration, c("duration", "duration_unit"), 
+                                convert = TRUE)
 
 ```
+
+
+# Rating x Type
+
+```{r, warning = F, fig.align = 'center'}
+
+netflix %>% 
+  select(type, rating) %>% 
+  ggplot(aes(rating)) +
+  geom_histogram(stat = "count", color = "#2F2F4C", fill = "#F2F2F7") +
+  facet_wrap(~type) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(title = "TV-14 and TV-MA represent the vast marjority of ratings",
+       subtitle = "For both movies and TV shows",
+       x = "Rating", y = "", 
+       caption = "\n TV-14 indicates a restriction for children under 14 years old and TV-MA suggests the title may be unsuitable for children under 17")
+  
+
+```
+
+
+
 
 # Rating x Genre
 
 A title is listed in many different genres simultaneously. 
 
 
-```{r}
+```{r, fig.align = 'center'}
 
 netflix %>% count(rating)
 
@@ -52,16 +78,22 @@ rating_genre <- netflix %>%
 
 rating_genre %>% 
   ggplot(aes(rating, listed_in)) +
-  geom_point(aes(size = n))
+  geom_point(aes(size = n)) +
+  labs(title = "Most netflix titles are TV shows rated for adults and 14+ year olds",
+       subtitle = "Which are represented ad TV-MA and TV-14, respectively",
+       x = "Rating", y = "Genre", size = "")
+
 
 
 ```
+
+
 
 # Director x Genre
 
 
 
-```{r}
+```{r, fig.align = 'center'}
 
 director_genre <- netflix %>% 
   select(director, listed_in) %>% 
@@ -82,7 +114,7 @@ director_genre %>%
 
 # Director x Actors
 
-```{r}
+```{r, fig.align = 'center'}
 
 director_cast <- netflix %>% 
   select(director, cast) %>% 
@@ -106,8 +138,6 @@ director_cast %>%
 
 ```{r}
 
-netflix %>% 
-  ggplot(aes(year, ))
 
 
 ```
@@ -115,7 +145,7 @@ netflix %>%
 
 # Duration x Country
 
-```{r}
+```{r, warning = F, message = F, fig.align = 'center'}
 
 duration <- netflix %>% 
   filter(type == "Movie") %>% 

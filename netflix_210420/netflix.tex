@@ -1,0 +1,1694 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={netflix},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{netflix}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.1.1     v dplyr   1.0.5
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(scales)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'scales'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     discard
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:readr':
+## 
+##     col_factor
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(skimr)}
+\FunctionTok{library}\NormalTok{(tidytext)}
+\FunctionTok{library}\NormalTok{(snakecase)}
+
+\NormalTok{tt }\OtherTok{\textless{}{-}}\NormalTok{ tidytuesdayR}\SpecialCharTok{::}\FunctionTok{tt\_load}\NormalTok{(}\StringTok{"2021{-}04{-}20"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Only 10 Github queries remaining until 2021-12-01 03:33:06 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## Only 10 Github queries remaining until 2021-12-01 03:33:06 PM -03.
+## Only 10 Github queries remaining until 2021-12-01 03:33:06 PM -03.
+## Only 10 Github queries remaining until 2021-12-01 03:33:06 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## Only 10 Github queries remaining until 2021-12-01 03:33:07 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## --- Compiling #TidyTuesday Information for 2021-04-20 ----
+\end{verbatim}
+
+\begin{verbatim}
+## Only 9 Github queries remaining until 2021-12-01 03:33:07 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## --- There is 1 file available ---
+\end{verbatim}
+
+\begin{verbatim}
+## Only 8 Github queries remaining until 2021-12-01 03:33:07 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## --- Starting Download ---
+\end{verbatim}
+
+\begin{verbatim}
+## Only 8 Github queries remaining until 2021-12-01 03:33:07 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+##  Downloading file 1 of 1: `netflix_titles.csv`
+\end{verbatim}
+
+\begin{verbatim}
+## Only 7 Github queries remaining until 2021-12-01 03:33:07 PM -03.
+\end{verbatim}
+
+\begin{verbatim}
+## --- Download complete ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{netflix }\OtherTok{\textless{}{-}}\NormalTok{ tt}\SpecialCharTok{$}\NormalTok{netflix\_titles}
+
+\FunctionTok{theme\_set}\NormalTok{(}\FunctionTok{theme\_light}\NormalTok{())}
+
+\FunctionTok{rm}\NormalTok{(tt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{netflix }\OtherTok{\textless{}{-}}\NormalTok{ netflix }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{separate}\NormalTok{(duration, }\FunctionTok{c}\NormalTok{(}\StringTok{"duration"}\NormalTok{, }\StringTok{"duration\_unit"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{skim}\NormalTok{(iris)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Data summary}\tabularnewline
+\toprule
+& \\
+\midrule
+\endfirsthead
+\toprule
+& \\
+\midrule
+\endhead
+Name & iris \\
+Number of rows & 150 \\
+Number of columns & 5 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Column type frequency: & \\
+factor & 1 \\
+numeric & 4 \\
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
+Group variables & None \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: factor}
+
+\begin{longtable}[]{@{}lrrlrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & ordered & n\_unique &
+top\_counts \\
+\midrule
+\endhead
+Species & 0 & 1 & FALSE & 3 & set: 50, ver: 50, vir: 50 \\
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: numeric}
+
+\begin{longtable}[]{@{}lrrrrrrrrrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & mean & sd & p0 & p25 &
+p50 & p75 & p100 & hist \\
+\midrule
+\endhead
+Sepal.Length & 0 & 1 & 5.84 & 0.83 & 4.3 & 5.1 & 5.80 & 6.4 & 7.9 &
+▆▇▇▅▂ \\
+Sepal.Width & 0 & 1 & 3.06 & 0.44 & 2.0 & 2.8 & 3.00 & 3.3 & 4.4 &
+▁▆▇▂▁ \\
+Petal.Length & 0 & 1 & 3.76 & 1.77 & 1.0 & 1.6 & 4.35 & 5.1 & 6.9 &
+▇▁▆▇▂ \\
+Petal.Width & 0 & 1 & 1.20 & 0.76 & 0.1 & 0.3 & 1.30 & 1.8 & 2.5 &
+▇▁▇▅▃ \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{rating-x-type}{%
+\section{Rating x Type}\label{rating-x-type}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{netflix }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(type, rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rating)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{stat =} \StringTok{"count"}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#2F2F4C"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"\#F2F2F7"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{type) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"TV{-}14 and TV{-}MA represent the vast marjority of ratings"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"For both movies and TV shows"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Rating"}\NormalTok{, }\AttributeTok{y =} \StringTok{""}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{ TV{-}14 indicates a restriction for children under 14 years old and TV{-}MA suggests the title may be unsuitable for children under 17"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Ignoring unknown parameters: binwidth, bins, pad
+\end{verbatim}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\hypertarget{rating-x-genre}{%
+\section{Rating x Genre}\label{rating-x-genre}}
+
+A title is listed in many different genres simultaneously.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{netflix }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(rating)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 15 x 2
+##    rating       n
+##    <chr>    <int>
+##  1 G           39
+##  2 NC-17        3
+##  3 NR          84
+##  4 PG         247
+##  5 PG-13      386
+##  6 R          665
+##  7 TV-14     1931
+##  8 TV-G       194
+##  9 TV-MA     2863
+## 10 TV-PG      806
+## 11 TV-Y       280
+## 12 TV-Y7      271
+## 13 TV-Y7-FV     6
+## 14 UR           5
+## 15 NA           7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{netflix }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{count}\NormalTok{(listed\_in)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 492 x 2
+##    listed_in                                                        n
+##    <chr>                                                        <int>
+##  1 Action & Adventure                                              99
+##  2 Action & Adventure, Anime Features, Children & Family Movies     3
+##  3 Action & Adventure, Anime Features, Classic Movies               1
+##  4 Action & Adventure, Anime Features, Horror Movies                1
+##  5 Action & Adventure, Anime Features, International Movies        28
+##  6 Action & Adventure, Anime Features, Sci-Fi & Fantasy             5
+##  7 Action & Adventure, Children & Family Movies                     2
+##  8 Action & Adventure, Children & Family Movies, Classic Movies     3
+##  9 Action & Adventure, Children & Family Movies, Comedies           4
+## 10 Action & Adventure, Children & Family Movies, Dramas             2
+## # ... with 482 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rating\_genre }\OtherTok{\textless{}{-}}\NormalTok{ netflix }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(rating, listed\_in) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate\_rows}\NormalTok{(listed\_in, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(listed\_in, rating) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+  
+
+\NormalTok{rating\_genre }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(rating, listed\_in)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{size =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Most netflix titles are TV shows rated for adults and 14+ year olds"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Which are represented ad TV{-}MA and TV{-}14, respectively"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Rating"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Genre"}\NormalTok{, }\AttributeTok{size =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{director-x-genre}{%
+\section{Director x Genre}\label{director-x-genre}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{director\_genre }\OtherTok{\textless{}{-}}\NormalTok{ netflix }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(director, listed\_in) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate\_rows}\NormalTok{(listed\_in, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate\_rows}\NormalTok{(director, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(listed\_in, director) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{director\_genre }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_max}\NormalTok{(n, }\AttributeTok{prop =} \FloatTok{0.005}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder}\NormalTok{(director, }\SpecialCharTok{{-}}\NormalTok{n), listed\_in)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{size =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Ozan Açıktan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\hypertarget{director-x-actors}{%
+\section{Director x Actors}\label{director-x-actors}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{director\_cast }\OtherTok{\textless{}{-}}\NormalTok{ netflix }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(director, cast) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate\_rows}\NormalTok{(cast, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(director, cast) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n))}
+
+\NormalTok{director\_cast }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_max}\NormalTok{(n, }\AttributeTok{prop =} \FloatTok{0.0005}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder}\NormalTok{(director, }\SpecialCharTok{{-}}\NormalTok{n), cast, }\AttributeTok{size =}\NormalTok{ n)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <c4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on 'Yılmaz Erdoğan' in 'mbcsToSbcs': dot substituted for <9f>
+\end{verbatim}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\hypertarget{rating-x-year}{%
+\section{Rating x Year}\label{rating-x-year}}
+
+\hypertarget{duration-x-country}{%
+\section{Duration x Country}\label{duration-x-country}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{duration }\OtherTok{\textless{}{-}}\NormalTok{ netflix }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(type }\SpecialCharTok{==} \StringTok{"Movie"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(duration, country, release\_year) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{country =} \FunctionTok{word}\NormalTok{(country, }\AttributeTok{sep =} \FunctionTok{fixed}\NormalTok{(}\StringTok{", "}\NormalTok{)),}
+         \AttributeTok{decade =}\NormalTok{ (release\_year }\SpecialCharTok{\%/\%} \DecValTok{10}\NormalTok{) }\SpecialCharTok{*} \DecValTok{10}\NormalTok{,}
+         \AttributeTok{decade =} \FunctionTok{as.factor}\NormalTok{(decade),}
+         \AttributeTok{duration =} \FunctionTok{as.numeric}\NormalTok{(duration))}
+         
+
+\NormalTok{duration }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(decade, duration, }\AttributeTok{group =}\NormalTok{ decade)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =} \DecValTok{1}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 9.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1.4317e-30
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
+## 9.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius 1.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
+## number 1.4317e-30
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other near
+## singularities as well. 1
+\end{verbatim}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_countries }\OtherTok{\textless{}{-}}\NormalTok{ duration }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{count}\NormalTok{(country) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{n) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{drop\_na}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{slice\_max}\NormalTok{(n, }\AttributeTok{prop =} \FloatTok{0.05}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(country)}
+
+\NormalTok{duration }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(country }\SpecialCharTok{\%in\%}\NormalTok{ top\_countries) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(decade, duration)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =}\NormalTok{ decade)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{group =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{country) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 9.035
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 2.035
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1.0079e-14
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
+## 9.035
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 2.035
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
+## number 1.0079e-14
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other near
+## singularities as well. 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 9.03
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.03
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 0
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Computation failed in `stat_smooth()`:
+## NA/NaN/Inf in foreign function call (arg 5)
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 9.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 2.8091e-30
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
+## 9.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius 1.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
+## number 2.8091e-30
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other near
+## singularities as well. 1
+\end{verbatim}
+
+\includegraphics{netflix_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\end{document}
