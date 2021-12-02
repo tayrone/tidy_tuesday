@@ -16,11 +16,16 @@ library(snakecase)
 
 theme_set(theme_light())
 
+netflix <- read_csv("netflix.csv")
+
+```
+
+
+```{r, include = F}
+
 # tt <- tidytuesdayR::tt_load("2021-04-20")
 # netflix <- tt$netflix_titles
 # rm(tt)
-
-netflix <- read_csv("netflix.csv")
 
 ```
 
@@ -63,7 +68,7 @@ netflix %>%
 A title is listed in many different genres simultaneously. 
 
 
-```{r, fig.align = 'center'}
+```{r, fig.align = 'center', fig.width = 10, fig.height = 6}
 
 netflix %>% count(rating)
 
@@ -79,9 +84,11 @@ rating_genre <- netflix %>%
 rating_genre %>% 
   ggplot(aes(rating, listed_in)) +
   geom_point(aes(size = n)) +
-  labs(title = "Most netflix titles are TV shows rated for adults and 14+ year olds",
-       subtitle = "Which are represented ad TV-MA and TV-14, respectively",
-       x = "Rating", y = "Genre", size = "")
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(title = "",
+       subtitle = "",
+       x = "Rating", y = "Genre", size = "Number of titles")
 
 
 
@@ -93,7 +100,7 @@ rating_genre %>%
 
 
 
-```{r, fig.align = 'center'}
+```{r, fig.align = 'center', fig.width = 12, fig.height = 4}
 
 director_genre <- netflix %>% 
   select(director, listed_in) %>% 
