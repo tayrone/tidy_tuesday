@@ -42,6 +42,143 @@ netflix <- netflix %>% separate(duration, c("duration", "duration_unit"),
 ```
 
 
+# Which directors have the most titles on netflix?
+
+
+```{r}
+
+netflix %>% 
+  drop_na(director) %>% 
+  count(director,  sort = T) %>% 
+  slice_max(order_by = n, prop = 0.01) %>% 
+  ggplot(aes(reorder(director, n), n)) +
+  geom_col(color = "#2F2F4C", fill = "#f2f2f7") +
+  coord_flip() +
+  labs(x = "", y = "",
+       title = "Raúl Campos and Jan Suter have the most successful partnership with Netflix",
+       subtitle = "In terms of number of titles available")
+
+
+
+netflix %>% 
+  ggplot(aes)
+
+
+```
+
+
+# Which directors have the longest/shortest movies, on average?
+
+
+```{r}
+
+max_duration_by_director <- netflix %>% 
+  filter(type == "Movie") %>% 
+  select(director, duration) %>%
+  drop_na() %>% 
+  group_by(director) %>% 
+  summarise(avg_duration = mean(duration)) %>% 
+  slice_max(order_by = avg_duration, prop = 0.01)
+
+
+max_duration_by_director %>% 
+  ggplot(aes(reorder(director, avg_duration), avg_duration)) + 
+  geom_col(color = "#2F2F4C", fill = "#f2f2f7") +
+  coord_flip()
+
+
+
+
+min_duration_by_director <- netflix %>% 
+  filter(type == "Movie") %>% 
+  select(director, duration) %>%
+  drop_na() %>% 
+  group_by(director) %>% 
+  summarise(avg_duration = mean(duration)) %>% 
+  slice_min(order_by = avg_duration, prop = 0.01)
+
+
+min_duration_by_director %>% 
+  ggplot(aes(reorder(director, -avg_duration), avg_duration)) + 
+  geom_col(color = "#2F2F4C", fill = "#f2f2f7") +
+  coord_flip()
+
+
+```
+
+
+# Which directors have the greatest numbers of matured-rated movies?
+
+
+```{r}
+
+netflix <- netflix %>% 
+  mutate(mature = rating %in% c("NC-17", "TV-MA", "R"))
+
+mature_directors <- netflix %>% 
+  #filter(type == "Movie") %>% 
+  select(title, director, mature) %>% 
+  drop_na() %>% 
+  group_by(director) %>%
+  summarise(total_mature = sum(mature),
+            total_movies = n(),
+            prop_mature = sum(mature)/n()) %>% 
+  arrange(-total_mature) %>% 
+  slice_max(order_by = total_mature, prop = 0.005) 
+  
+
+mature_directors %>% 
+  ggplot() +
+  geom_col(aes(reorder(director, total_movies), total_movies), fill = "#968b8f") +
+  geom_col(aes(director, total_mature), fill = "#2e1820") +
+  coord_flip() +
+  #scale_fill_gradient(low = "#eae7e8", high = "#2e1820") +
+  labs(x = "", y = "Total number of movies by director", 
+       fill = "Proportion of\nmatured rated titles",
+       title = "The marjority of the titles from the top 1 directors are matured-rated")
+
+
+```
+
+
+# Which titles are the most international (produced in several different countries)? 
+
+
+```{r}
+
+test <- netflix %>% 
+  select(show_id, title, country) %>% 
+  separate_rows(country, sep = ", ") %>% 
+  group_by(show_id) %>% 
+  summarise(n_countries = n_unique(country)) %>% 
+  arrange(-n_countries) %>% 
+  right_join(netflix, by = "show_id")
+  
+
+test %>% 
+  slice_max(order_by = n_countries, prop = 0.005) %>% 
+  ggplot(aes(reorder(title, n_countries), n_countries)) + 
+  geom_col() +
+  coord_flip()
+
+```
+
+
+```{r}
+
+netflix %>% 
+  separate_rows(country, sep = ", ") %>% 
+  group_by(director) %>% 
+  summarise(n_countries = n_unique(country)) %>% 
+  arrange(-n_countries) %>% view(
+  )
+
+
+```
+
+
+
+
 # Rating x Type
 
 ```{r, warning = F, fig.align = 'center'}
@@ -89,7 +226,6 @@ rating_genre %>%
   labs(title = "",
        subtitle = "",
        x = "Rating", y = "Genre", size = "Number of titles")
-
 
 
 ```
